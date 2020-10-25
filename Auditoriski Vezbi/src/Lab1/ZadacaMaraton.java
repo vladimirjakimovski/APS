@@ -44,6 +44,141 @@ public class ZadacaMaraton {
     }
 }
 
-class Atleticar {
+interface IMaraton {
+    Atleticar najdobroVreme();
+    int atleticariOd(String s);
+}
 
+class Atleticar {
+    String ime;
+    String pol;
+    int vozrast;
+    double vreme;
+    String zemja;
+
+    public Atleticar(String ime, String pol, int vozrast, double vreme, String zemja) {
+        this.ime = ime;
+        this.pol = pol;
+        this.vozrast = vozrast;
+        this.vreme = vreme;
+        this.zemja = zemja;
+    }
+
+    public Atleticar() {}
+
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public String getPol() {
+        return pol;
+    }
+
+    public void setPol(String pol) {
+        this.pol = pol;
+    }
+
+    public int getVozrast() {
+        return vozrast;
+    }
+
+    public void setVozrast(int vozrast) {
+        this.vozrast = vozrast;
+    }
+
+    public double getVreme() {
+        return vreme;
+    }
+
+    public void setVreme(double vreme) {
+        this.vreme = vreme;
+    }
+
+    public String getZemja() {
+        return zemja;
+    }
+
+    public void setZemja(String zemja) {
+        this.zemja = zemja;
+    }
+
+    @Override
+    public String toString() {
+        return ime + "\n" +  vozrast + "\n" + zemja + "\n" + vreme + "\n";
+    }
+}
+
+class Maraton implements IMaraton {
+    String mesto;
+    int godina;
+    Atleticar[] atleticari;
+
+    public Maraton(String mesto, int godina, Atleticar[] atleticari) {
+        this.mesto = mesto;
+        this.godina = godina;
+        this.atleticari = atleticari;
+    }
+
+    public  Maraton() {}
+
+    public String getMesto() {
+        return mesto;
+    }
+
+    public void setMesto(String mesto) {
+        this.mesto = mesto;
+    }
+
+    public int getGodina() {
+        return godina;
+    }
+
+    public void setGodina(int godina) {
+        this.godina = godina;
+    }
+
+    public Atleticar[] getAtleticari() {
+        return atleticari;
+    }
+
+    public void setAtleticari(Atleticar[] atleticari) {
+        this.atleticari = atleticari;
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for(Atleticar a: atleticari) {
+            s += a.toString();
+        }
+        return mesto + '\n' + godina +
+                '\n' + s;
+    }
+
+    @Override
+    public Atleticar najdobroVreme() {
+        double min = atleticari[0].getVreme();
+        int k = 0;
+
+        for (int i = 0; i < atleticari.length; i++) {
+            if(atleticari[i].getVreme() < min) {
+                min = atleticari[i].getVreme();
+                k = i;
+            }
+        }
+        return atleticari[k];
+    }
+
+    @Override
+    public int atleticariOd(String s) {
+        int n = 0;
+        for (Atleticar a: atleticari) {
+            if(a.getZemja().equals(s)) n++;
+        }
+        return n;
+    }
 }
